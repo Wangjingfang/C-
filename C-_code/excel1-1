@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace execel1_1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = 1234, b = -1234;
+            Console.WriteLine("a={0:g}, b={1:g}", a, b);        // 通用格式
+            Console.WriteLine("a={0:d5}, b={1:D5}", a, b);      // 整数数据类型格式， 5位数字
+            Console.WriteLine("a={0:c3}, b={1,5:c6}", a, b);   // 将数据转换成货币格式，c数字是小数点后几位
+            Console.ReadKey();
+        }
+    }
+}
+/*
+a=1234, b=-1234
+a=01234, b=-01234
+a=￥1,234.000, b=￥-1,234.000000
+ */
