@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace execl1_2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double d = 123.456;
+            Console.Write("{0:c2}", d);     //  Write 与 WriteLine，前者返回不自动换行。
+            Console.WriteLine("{0:e}", d);  // 科学记数格式
+            Console.WriteLine("{0:f4}", d);
+            Console.WriteLine("{0:g}", d);   // 
+            Console.WriteLine("{0:n2}", d);  // 以自然数格式，默认保存2位
+            Console.ReadKey();
+        }
+    }
+}
+/*
+￥123.461.234560e+002
+123.4560
+123.456
+123.46
+ */
