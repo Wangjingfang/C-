@@ -1,0 +1,135 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace proj7_1
+{
+    class Student
+    {
+        int sno;
+        string sname;
+        public Student() { }
+        public Student(int no, string name)
+        {
+            sno = no;
+            sname = name;
+        }
+        public void Dispstudent()
+        {
+            Console.Write("[{0}:{1}]", sno, sname);
+        }
+    }
+    class Teacher
+    {
+        int tno;
+        string tname;
+        public Teacher() { }
+        public Teacher(int no, string name)
+        {
+            tno = no;
+            tname = name;
+        }
+        public void Dispteacher()
+        {
+            Console.Write("[{0}:{1}]", tno, tname);
+        }
+    }
+    class Stack<T>
+    {
+        int maxsize;
+        T[] data;
+        int top;
+        public Stack()
+        {
+            maxsize = 10;
+            data = new T[maxsize];
+            top = -1;
+        }
+        public bool StackEmpty()            // 判断栈空方法
+        {
+            return top == -1;
+        }
+        public bool Push(T e)               // 元素e进栈的方法
+        {                                   // 栈满返回false
+            if (top == maxsize - 1)
+                return false;
+            top++;
+            data[top] = e;
+            return true;
+        }
+        public bool Pop(ref T e)            // 元素出栈
+        {                                   // 栈空返回false
+            if (top == -1)
+                return false;
+            e = data[top];
+            top--;
+            return true;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {   // ------整数栈操作--------
+            int e = 0;
+            Stack<int> s1 = new Stack<int>();         // 定义整数栈
+            s1.Push(1);
+            s1.Push(2);
+            s1.Push(3);
+            Console.Write("整数栈出栈顺序： ");
+            while (!s1.StackEmpty())                //  栈不空时元素出栈
+            {
+                s1.Pop(ref e);
+                Console.Write("{0}", e);
+            }
+            Console.WriteLine();
+            // 实数栈操作
+            double d = 0;
+            Stack<double> s2 = new Stack<double>();
+            s2.Push(2.5);
+            s2.Push(3.8);
+            s2.Push(5.9);
+            Console.Write("实数栈出栈次序： ");
+            while (!s2.StackEmpty())
+            {
+                s2.Pop(ref d);
+                Console.Write("{0}", d);
+            }
+            Console.WriteLine();
+            // 学生对象栈操作
+            Student st = new Student();
+            Stack<Student> s3 = new Stack<Student>();
+            s3.Push(new Student(1, "Student1"));
+            s3.Push(new Student(2, "Student2"));
+            s3.Push(new Student(3, "Student3"));
+            Console.Write("学生对象出栈顺序： ");
+            while (!s3.StackEmpty())
+            {
+                s3.Pop(ref st);
+                st.Dispstudent();
+            }
+            Console.WriteLine();
+            // 教师对象栈操作
+            Teacher te = new Teacher();
+            Stack<Teacher> s4 = new Stack<Teacher>();
+            s4.Push(new Teacher(1, "Teacher1"));
+            s4.Push(new Teacher(2, "Teacher2"));
+            s4.Push(new Teacher(3, "Teacher3"));
+            Console.Write("教师对象出栈顺序次序： ");
+            while (!s4.StackEmpty())
+            {
+                s4.Pop(ref te);
+                te.Dispteacher();
+            }
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+    }
+}
+/*
+整数栈出栈顺序： 321
+实数栈出栈次序： 5.93.82.5
+学生对象出栈顺序： [3:Student3][2:Student2][1:Student1]
+教师对象出栈顺序次序： [3:Teacher3][2:Teacher2][1:Teacher1]
+*/
