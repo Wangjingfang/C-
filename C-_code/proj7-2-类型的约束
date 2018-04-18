@@ -1,0 +1,123 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+// 类型参数的约束
+namespace proj7_2
+{
+    public class Student
+    {
+        private int id;
+        private string name;
+        public Student(int i, string s)     // 构造函数
+        {
+            id = i;
+            name = s;
+        }
+        public string Name                  // Name 属性
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+    }
+    public class GenericList<T> where T : Student
+    {
+        private class Node
+        {
+            private Node next;
+            private T data;
+            public Node(T t)
+            {
+                next = null;
+                data = t;
+            }
+            public Node Next
+            {
+                get { return next; }
+                set { next = value; }
+            }
+            public T Data
+            {
+                get { return data; }
+                set { data = value; }
+            }
+        }
+        private Node head;                  // 指向首结点
+        public GenericList()                // 构造函数
+        {
+            head = null;
+        }
+        public void AddHead(T t)            // 向首部插入一个结点
+        {
+            Node n = new Node(t);
+            n.Next = head;
+            head = n;
+        }
+        public void Display()               // 输出所有结点的数据
+        {
+            Node current = head;
+            while (current != null)
+            {
+                Console.Write("[{0},{1}]", current.Data.Id, current.Data.Name);
+                current = current.Next;
+            }
+            Console.WriteLine();
+        }
+        public T FindNoNode(int no)         // 按学号查找
+        {
+            Node current = head;
+            T t = null;
+            while (current != null)
+            {                               // 约束能够确保对Id的访问
+                if (current.Data.Id == no)
+                {
+                    t = current.Data;       // 如果找到了， t指向该结点
+                    break;
+                }
+                else
+                {
+                    current = current.Next;   // 否则，沿Next继续查找
+                }
+                    
+            }
+            return t;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            GenericList<Student> st = new GenericList<Student>();
+            Student s;
+            Student s1 = new Student(1, "Mary");        // 创建4个Student 对象
+            Student s2 = new Student(2, "Smith");
+            Student s3 = new Student(3, "John");
+            Student s4 = new Student(4, "Daniel");
+            st.AddHead(s1);                         // 将4个对象插入学生链表
+            st.AddHead(s2);
+            st.AddHead(s3);
+            st.AddHead(s4);
+            Console.Write("输出所有学生信息： ");
+            st.Display();
+            int no = 1;
+            s = st.FindNoNode(no);
+            if (s != null)
+                Console.WriteLine("学号为{0}的学生姓名是：{1}", no, s.Name);
+            else
+                Console.WriteLine("查无此人");
+
+            Console.ReadKey();
+        }
+    }
+}
+/*
+输出所有学生信息： [4,Daniel][3,John][2,Smith][1,Mary]
+学号为1的学生姓名是：Mary
+*/
