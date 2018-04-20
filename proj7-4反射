@@ -1,1 +1,16 @@
-待定
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sport.cs
+{
+    public abstract class Sport
+    {
+        protected string name;
+        public abstract string GetDuration();
+        public abstract string GetName();
+    }
+}
+如何生成dll文件？？
