@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections;
+
+namespace IEnumerable接口
+{
+    public class Student
+    {
+        public int id;
+        public string name;
+        public Student(int id, string name)
+        {
+            this.id = id;
+            this.name = name;
+        }
+    }
+    public class People : IEnumerable<Student>
+    {
+        private Student[] sts;
+        public People(Student[] pArray)
+        {
+            sts = new Student[pArray.Length];
+            for (int i = 0; i < pArray.Length; i++)
+                sts[i] = pArray[i];
+        }
+        IEnumerator IEnumerable.GetEnumerator()         // 实现 IEnumerabe 的 GetEnumerator方法
+        {
+            return (IEnumerator)GetEnumerator();        // 调用People类的GetEnumerator方法，并将结果转换为枚举器对象
+        }
+        public PeopleEnum GetEnumerator()               // 定义People类的GetEnumerator
+        {
+            return new PeopleEnum(sts); 
+        }
+    }
+    public class PeopleEnum : IEnumerator
+    {
+        public Student[] sts;
+        int position = -1;
+        public PeopleEnum(Student[] list)
+        {
+            sts = list;
+        }
+        public bool MoveNext()                      // 定义PeopleEnum的MoveNext 方法
+        {
+            position++;
+            return (position < sts.Length);
+        }
+        public void Reset()
+        {
+            position = -1;
+        }
+        object IEnumerator.Current
+        {
+            get
+            { return Current; }
+        }
+        public Student Current
+        {
+            get
+            { return sts[position]; }
+        }
+     }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Student[] atarry = new Student[4];
+            {   new Student(1, "Smith");new Student(2, "Johnson");
+                new Student(3, "Marry"); new Student(4, "Hammer");} 
+            People peopleList = new People(starry);         //  ???
+            foreach (Student p in peopleList)
+                Console.WriteLine(p.id.ToString() + " " + p.name);
+            Console.ReadKey();
+        }
+    }
+}
