@@ -14,3 +14,8 @@ namespace Sport.cs
     }
 }
 如何生成dll文件？？
+方法1： 使用Visual Studio 
+右键点击要生成的项目，选择属性，在应用程序中 输出的类型选择“类库”。 然后在点击项目重新生成即可，则会在bin文件中生产和命名一样的.dll文件。
+方法2：使用cmd命令生成：
+path C:\Windows\Microsoft.NET\Framework64\v4.0.30319
+csc /target:library file.cs    // 编译 File.cs 在该目录下产生一个对应名字的.dll文件
