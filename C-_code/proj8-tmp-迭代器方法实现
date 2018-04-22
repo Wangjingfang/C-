@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+
+
+namespace tmp_迭代器
+{
+    class Program
+    {
+        static void Main()
+        {
+            foreach (int number in SomeNumbers())           // 迭代变量 number
+                Console.Write(number.ToString() + " ");
+            Console.ReadKey();
+        }
+        public static IEnumerable<int> SomeNumbers()        // 迭代器方法
+        {
+            yield return 3;                                 // 产生可枚举值3
+            yield return 5;                                 // 产生可枚举值5
+            yield return 8;                                 // 产生可枚举值8
+
+        }
+    }
+}
+// 3 5 8
