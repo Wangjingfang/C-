@@ -1,0 +1,53 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+
+namespace proj8_4_泛型做列表容器
+{
+    public class Myclass<T> : IEnumerable<T>  // 发声泛型类
+    {
+        private T[] data = new T[100];
+        private int length = 0;
+        public void Add(T e)
+        {
+            data[length] = e;
+            length++;
+        }
+        // 这个方法实现IEnumerable 的GetEnumerator方法，它允许该类的实例用于foreach语句
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i <= length - 1; i++)
+                yield return data[i];
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Myclass<int> numlist = new Myclass<int>();
+            for (int i = 1; i <= 9; i++)
+            {
+                numlist.Add(i);
+            }
+            Console.Write("数字表： ");
+            foreach (int item in numlist)
+                Console.Write(" {0}", item);
+            Console.WriteLine();
+            // -----------------------------------------------
+            Myclass<string> strlist = new Myclass<string>();
+            strlist.Add("Marry");
+            strlist.Add("Smith");
+            strlist.Add("Johnson");
+            Console.Write("字符串表");
+            foreach (string item in strlist)
+                Console.Write(" {0} ", item);
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+    }
+}
