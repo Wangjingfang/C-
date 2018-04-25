@@ -1,0 +1,24 @@
+using System;
+// 能被400整除的，或不能被100整除但可以被4整除的年份.
+
+namespace proj3_3闰年
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int year;
+            int rem4, rem100, rem400;
+            Console.Write("输入年份");
+            year = int.Parse(Console.ReadLine());
+            rem400 = year % 400;
+            rem100 = year % 100;
+            rem4 = year % 4;
+            if ((rem400 == 0) || ((rem4 == 0) && (rem100 != 0 )))
+                Console.WriteLine("{0}是闰年", year);
+            else
+                Console.WriteLine("{0} 不是闰年", year);
+            Console.ReadKey();
+        }
+    }
+}
