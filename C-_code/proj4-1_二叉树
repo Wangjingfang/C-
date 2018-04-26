@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+// 二分法查找用户输入的数值。
+namespace proj4_1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double[] a = new double[10] { 0, 1.2, 2.5, 3.1, 4.6, 5.0, 6.7, 7.6, 8.2, 9.8 };
+            double k;
+            Console.Write(" k: ");
+            k = double.Parse(Console.ReadLine());
+            int low = 0, high = 9, mid;
+            
+            while (low <= high)
+            {
+                mid = (high + low) / 2;
+                if (k == a[mid])
+                {
+                    Console.WriteLine("a[{0}] = {1}", mid, k);
+                    Console.Write("nihaoee");
+                    break;              // 跳出本次循环
+                    //return;         // 返回整个程序结束
+                }
+                else if (a[mid] > k)
+                    high = mid - 1;
+                else
+                    low = mid + 1;
+                          
+            }
+            Console.WriteLine("未找到{0}", k);
+            Console.ReadKey();
+        }
+    }
+}
