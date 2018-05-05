@@ -1,0 +1,84 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _5_14_事件的使用
+{
+    public delegate void mydelegate(int c, int n);      // 声明一个事件委托类型
+    public class Shape                                  // 声明引发事件的类
+    {
+        protected int color;                            // 定义保护字段color
+        protected int size;                             // 定义保护字段size
+        public event mydelegate ColorChange;            // 定义一个事件
+        public event mydelegate GetSize;                // 定义一个事件
+        public int pcolor                               // 定义属性
+        {
+            set
+            {
+                int ocolor = color;
+                color = value;
+                ColorChange(ocolor, color);
+            }
+        }
+        public int psize                                  // 定义属性
+        {
+            get
+            {
+                GetSize(size, 10);
+                return size;
+            }
+        }
+        public Shape()
+        {
+            color = 0; size = 10;
+        }
+        public Shape(int c, int s)
+        {
+            color = c; size = s;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Shape obj = new Shape();
+            obj.ColorChange += new mydelegate(CCHandler1);          // 订阅事件
+            obj.GetSize += new mydelegate(CCHandler2);              // 订阅事件
+            Console.WriteLine("obj对象的操作： ");
+            obj.pcolor = 3;                                         // 改变颜色时引发事件
+            Console.WriteLine("大小为：{0}", obj.psize);            // 获取大小时引发事件
+            Shape obj1 = new Shape(5, 20);
+            obj1.ColorChange += new mydelegate(CCHandler1);         // 订阅事件
+            obj1.GetSize += new mydelegate(CCHandler2);             // 订阅事件
+            Console.WriteLine("==============================");
+            Console.WriteLine("Obj1对象的操作： ");
+            obj1.pcolor = 3;                                        // 改变颜色时引发事件
+            Console.WriteLine("大小为：{0}", obj1.psize);           // 获取大小时引发事件
+            Console.ReadKey();
+        }
+        static void CCHandler1(int c, int n)                        // 事件处理方法
+        {
+            Console.WriteLine("颜色从{0}改变为{1}", c, n);
+        }
+        static void CCHandler2(int s, int n)                        // 事件处理方法
+        {
+            if (s == n)
+                Console.WriteLine("大小没有改变");
+            else
+                Console.WriteLine("大小已改变");
+        }
+    }
+}
+/*
+obj对象的操作：
+颜色从0改变为3
+大小没有改变
+大小为：10
+==============================
+Obj1对象的操作：
+颜色从5改变为3
+大小已改变
+大小为：20
+*/
